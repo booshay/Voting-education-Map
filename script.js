@@ -48,22 +48,13 @@ fetchURLs().then((data) => {
   const geoData = topojson.feature(countyData, countyData.objects.counties)
     .features; //converted to GeoJSON
 
-  /*vote play zone
-
-  const HillaryVote = voteData.filter((d) => {
-    return d.FIPS == 25023 && d.year == 2016 && d.candidate == "Hillary Clinton"
-  })
-  const TrumpVote = voteData.filter((d) => {
-    return d.FIPS == 25023 && d.year == 2016 && d.candidate == "Donald Trump"
+  const voteTotal = data[2].filter((e) => {
+    return e.state == "California" && e.year == '2016' && (e.party == "republican" || e.party == "democrat")
   })
 
-  const Hilary = Number(HillaryVote[0].candidatevotes);
-  const Trump = Number(TrumpVote[0].candidatevotes);
-  const totalVotes = (TrumpVote[0].totalvotes)
-  console.log(totalVotes)
-  console.log(d3.format('.0%')(Hilary / totalVotes))
 
-  */ //end vote play zone
+
+  console.log(voteTotal)
 
   const minBachelors = d3.min(educationData, (d) => d.bachelorsOrHigher);
   const maxBachelors = d3.max(educationData, (d) => d.bachelorsOrHigher);
@@ -202,7 +193,7 @@ fetchURLs().then((data) => {
           return 0;
         })
         .style("left", d3.event.pageX + 15 + "px")
-        .style("top", d3.event.pageY - 50 + "px");
+        .style("top", d3.event.pageY - 150 + "px");
     })
     .on("mouseout", (d) => {
       tooltip.style("opacity", 0);
